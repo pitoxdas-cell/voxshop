@@ -1,0 +1,26 @@
+
+          path: build/libs/voxshop-1.0.0.jar
+name: Compilar mod
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+      - name: Compilar
+        run: |
+          chmod +x gradlew
+          ./gradlew build --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: voxshop-jar
+          path: build/libs/voxshop-1.0.0.jar
+          
